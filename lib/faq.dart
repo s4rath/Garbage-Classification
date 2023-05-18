@@ -27,7 +27,8 @@ class _FAQsState extends State<FAQs> {
   - Have the dry waste picked up by the dry waste collection centre or your local scrap dealer.'''),
   ];
   Widget infoTemplate(info){
-    return  Padding(
+    return  
+    Padding(
       padding: const EdgeInsets.all(15.0),
       child: Container(
         decoration: BoxDecoration(
@@ -56,31 +57,32 @@ class _FAQsState extends State<FAQs> {
   }
   @override
   Widget build(BuildContext context) {
-    return  Align(
-      alignment:Alignment.topCenter,
-      child: Container(
-        height: MediaQuery.of(context).size.height-80,
-        width: MediaQuery.of(context).size.width,
-        color: Color(0xFFFFFDD0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 40,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text('FAQs',style: GoogleFonts.poppins(fontSize: 36,color: Colors.black,fontWeight: FontWeight.w500),),
-              ),
-              Column(
-                children: infos.map((info) => infoTemplate(info)).toList(),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    return  Container();
+    // Align(
+    //   alignment:Alignment.topCenter,
+    //   child: Container(
+    //     height: MediaQuery.of(context).size.height-80,
+    //     width: MediaQuery.of(context).size.width,
+    //     color: Color(0xFFFFFDD0),
+    //     child: SingleChildScrollView(
+    //       child: Column(
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: [
+    //           const SizedBox(
+    //             height: 40,
+    //           ),
+    //           Padding(
+    //             padding: const EdgeInsets.all(10.0),
+    //             child: Text('FAQs',style: GoogleFonts.poppins(fontSize: 36,color: Colors.black,fontWeight: FontWeight.w500),),
+    //           ),
+    //           Column(
+    //             children: infos.map((info) => infoTemplate(info)).toList(),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }
 class Info {

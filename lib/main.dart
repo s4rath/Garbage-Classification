@@ -1,18 +1,30 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trash_can/profile.dart';
 import 'package:trash_can/detect.dart';
 import 'package:trash_can/faq.dart';
 import 'package:trash_can/home.dart';
 import 'package:trash_can/waste.dart';
 
+import 'onboard.dart';
 
-void main() {
-  runApp(const MyApp());
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+  print(isLoggedIn);
+  
+  runApp( MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+  const MyApp({super.key, required this.isLoggedIn});
 
   // This widget is the root of your application.
   @override
@@ -20,7 +32,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: Nav()
+      home: OnboardScreen(),
+      
+      // HomePage(),
+      
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -51,11 +67,12 @@ class _NavState extends State<Nav> {
     final  List<Widget> _pages = <Widget>[
       HomePage(),
       Waste(),
-      Predict(),
+      const Predict(),
       FAQs(),
+      const MyProfile()
     ];
     return Scaffold(
-      backgroundColor: Color(0xFFFFFDD0),
+      backgroundColor: const Color(0xFFFFFDD0),
       body: Stack(
         children: [
           Center(
@@ -85,7 +102,7 @@ class _NavState extends State<Nav> {
                           setBottomBarIndex(2);
                         },),
                       ),
-                      SizedBox(height: 26,),
+                      const SizedBox(height: 26,),
                       Text('Classify',style: GoogleFonts.getFont('Didact Gothic',color:Colors.black,fontWeight: FontWeight.bold,fontSize: 14),),
                     ],
                   ),
@@ -152,7 +169,7 @@ class _NavState extends State<Nav> {
                           children: [
                             IconButton(
                                 icon: Icon(
-                                  FontAwesomeIcons.peopleGroup,
+                                  FontAwesomeIcons.user,
                                   color: currentIndex == 4 ? Colors.grey : Colors.black,
                                   size: 25,
                                 ),
@@ -178,14 +195,14 @@ class BNBCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = new Paint()
-      ..color = Color(0xFFF7CC00)
+      ..color = const Color(0xFFF7CC00)
       ..style = PaintingStyle.fill;
 
     Path path = Path();
     path.moveTo(0, 20); // Start
     path.quadraticBezierTo(size.width * 0.20, 0, size.width * 0.35, 0);
     path.quadraticBezierTo(size.width * 0.40, 0, size.width * 0.40, 20);
-    path.arcToPoint(Offset(size.width * 0.60, 20), radius: Radius.circular(20.0), clockwise: false);
+    path.arcToPoint(Offset(size.width * 0.60, 20), radius: const Radius.circular(20.0), clockwise: false);
     path.quadraticBezierTo(size.width * 0.60, 0, size.width * 0.65, 0);
     path.quadraticBezierTo(size.width * 0.80, 0, size.width, 20);
     path.lineTo(size.width, size.height);

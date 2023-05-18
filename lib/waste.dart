@@ -48,37 +48,38 @@ It has to be wrapped separately in a newspaper and handed over to the municipali
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      backgroundColor: Color(0xFFFFFDD0),
-      body: SingleChildScrollView(
-        child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8, 38, 0, 15),
-            child: Text('Types of Waste',style: GoogleFonts.getFont('Didact Gothic',color:Colors.black,fontWeight: FontWeight.w600,fontSize: 35),),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: Image.asset('assets/check.jpeg'),
-          // ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(why,style: GoogleFonts.getFont('Didact Gothic',color:Colors.black,fontWeight: FontWeight.w600,fontSize: 20),),
-          ),
-          SizedBox(height: 10,),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8, 38, 0, 15),
-            child: Text('Ways For Disposal',style: GoogleFonts.getFont('Didact Gothic',color:Colors.black,fontWeight: FontWeight.w600,fontSize: 35),),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(todo,style: GoogleFonts.getFont('Didact Gothic',color:Colors.black,fontWeight: FontWeight.w600,fontSize: 20),),
-          ),
-          SizedBox(height: 80,),
-        ],
-    ),
-      ),
-    );
+    return Container();
+    // Scaffold(
+    //   backgroundColor: Color(0xFFFFFDD0),
+    //   body: SingleChildScrollView(
+    //     child: Column(
+    //     crossAxisAlignment: CrossAxisAlignment.start,
+    //     children: [
+    //       Padding(
+    //         padding: const EdgeInsets.fromLTRB(8, 38, 0, 15),
+    //         child: Text('Types of Waste',style: GoogleFonts.getFont('Didact Gothic',color:Colors.black,fontWeight: FontWeight.w600,fontSize: 35),),
+    //       ),
+    //       // Padding(
+    //       //   padding: const EdgeInsets.all(8.0),
+    //       //   child: Image.asset('assets/check.jpeg'),
+    //       // ),
+    //       Padding(
+    //         padding: const EdgeInsets.all(8.0),
+    //         child: Text(why,style: GoogleFonts.getFont('Didact Gothic',color:Colors.black,fontWeight: FontWeight.w600,fontSize: 20),),
+    //       ),
+    //       SizedBox(height: 10,),
+    //       Padding(
+    //         padding: const EdgeInsets.fromLTRB(8, 38, 0, 15),
+    //         child: Text('Ways For Disposal',style: GoogleFonts.getFont('Didact Gothic',color:Colors.black,fontWeight: FontWeight.w600,fontSize: 35),),
+    //       ),
+    //       Padding(
+    //         padding: const EdgeInsets.all(8.0),
+    //         child: Text(todo,style: GoogleFonts.getFont('Didact Gothic',color:Colors.black,fontWeight: FontWeight.w600,fontSize: 20),),
+    //       ),
+    //       SizedBox(height: 80,),
+    //     ],
+    // ),
+    //   ),
+    // );
   }
 }

@@ -24,72 +24,73 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(0),
-            child: Container(
+    return Container();
+    // SingleChildScrollView(
+    //   child: Column(
+    //     crossAxisAlignment: CrossAxisAlignment.start,
+    //     children: [
+    //       SizedBox(
+    //         height: 40,
+    //       ),
+    //       Padding(
+    //         padding: const EdgeInsets.all(0),
+    //         child: Container(
 
-              height: 60,
-              color: Color(0xFFF7CC00),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(' Waste Segregation',style: GoogleFonts.getFont('Didact Gothic',color:Colors.black,fontWeight: FontWeight.bold,fontSize: 32),),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            color: Color(0xFFF7CC00),
-            child: CarouselSlider(
-              options: CarouselOptions(
-                  height: 175.0,
-                  autoPlay: true),
-              items: ['https://sustainmantra.com/wp-content/uploads/2020/12/cropped-slide1-1536x922-1-700x300.jpg','https://spectro.in/images/Waste-Management-Banner.jpg','https://immago.com/wp-content/uploads/2019/04/featured-biodegradable-bags.jpg','https://www.up.edu/sustainability/images/sustainability_images_2022/3_basic-rules.png','https://waste-management-world.com/imager/media/wasteManagementWorld/808812/3278_428fd902f4247199467725e7eccf1673.jpg'].map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.symmetric(horizontal: 5.0),
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Image.network(i,fit: BoxFit.scaleDown,),
-                        ),
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-          ),
-          SizedBox(height: 20,),
-          Text('The Importance of Waste Segregation -',style: GoogleFonts.didactGothic(fontSize: 28,fontWeight: FontWeight.bold),),
-          ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          physics: ClampingScrollPhysics(),
-          itemCount: 5,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                padding: EdgeInsets.all(0),
-                    child: index !=1? Text(data[index],style: GoogleFonts.didactGothic(color: Colors.black,fontSize: 20),):Text(data[index],style: GoogleFonts.didactGothic(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold),),
-                  ),
-            );
-          }),
-          SizedBox(height: 85,),
-        ],
-      ),
-    );
+    //           height: 60,
+    //           color: Color(0xFFF7CC00),
+    //           child: Row(
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             children: [
+    //               Text(' Waste Segregation',style: GoogleFonts.getFont('Didact Gothic',color:Colors.black,fontWeight: FontWeight.bold,fontSize: 32),),
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //       Container(
+    //         color: Color(0xFFF7CC00),
+    //         child: CarouselSlider(
+    //           options: CarouselOptions(
+    //               height: 175.0,
+    //               autoPlay: true),
+    //           items: ['https://sustainmantra.com/wp-content/uploads/2020/12/cropped-slide1-1536x922-1-700x300.jpg','https://spectro.in/images/Waste-Management-Banner.jpg','https://immago.com/wp-content/uploads/2019/04/featured-biodegradable-bags.jpg','https://www.up.edu/sustainability/images/sustainability_images_2022/3_basic-rules.png','https://waste-management-world.com/imager/media/wasteManagementWorld/808812/3278_428fd902f4247199467725e7eccf1673.jpg'].map((i) {
+    //             return Builder(
+    //               builder: (BuildContext context) {
+    //                 return Container(
+    //                     width: MediaQuery.of(context).size.width,
+    //                     margin: EdgeInsets.symmetric(horizontal: 5.0),
+    //                     decoration: BoxDecoration(
+    //                         color: Colors.transparent,
+    //                         borderRadius: BorderRadius.circular(10),
+    //                     ),
+    //                     child: Padding(
+    //                       padding: const EdgeInsets.all(12.0),
+    //                       child: Image.network(i,fit: BoxFit.scaleDown,),
+    //                     ),
+    //                 );
+    //               },
+    //             );
+    //           }).toList(),
+    //         ),
+    //       ),
+    //       SizedBox(height: 20,),
+    //       Text('The Importance of Waste Segregation -',style: GoogleFonts.didactGothic(fontSize: 28,fontWeight: FontWeight.bold),),
+    //       ListView.builder(
+    //       shrinkWrap: true,
+    //       scrollDirection: Axis.vertical,
+    //       physics: ClampingScrollPhysics(),
+    //       itemCount: 5,
+    //       itemBuilder: (BuildContext context, int index) {
+    //         return Padding(
+    //           padding: const EdgeInsets.all(8.0),
+    //           child: Container(
+    //             padding: EdgeInsets.all(0),
+    //                 child: index !=1? Text(data[index],style: GoogleFonts.didactGothic(color: Colors.black,fontSize: 20),):Text(data[index],style: GoogleFonts.didactGothic(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold),),
+    //               ),
+    //         );
+    //       }),
+    //       SizedBox(height: 85,),
+    //     ],
+    //   ),
+    // );
   }
 }
