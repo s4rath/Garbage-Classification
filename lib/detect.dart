@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:trash_can/feedback.dart';
 import 'package:trash_can/wasteinfo.dart';
 import 'package:lottie/lottie.dart';
 
@@ -83,13 +84,11 @@ class _PredictState extends State<Predict> with SingleTickerProviderStateMixin {
       int? points = materialsPoints[gname];
       // Future.delayed(Duration(milliseconds: 600), () {
       showSuccessfulDialog(gname, points!);
-      
+
 // });
       addPointDocument(gname, points!);
     }
   }
-
-
 
   Future<void> addPointDocument(String garbageName, int point) async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
@@ -140,36 +139,36 @@ class _PredictState extends State<Predict> with SingleTickerProviderStateMixin {
     print("here");
     detectimage(_image);
   }
-    void showSuccessfulDialog(String name, int points) =>
+
+  void showSuccessfulDialog(String name, int points) =>
       // Future.delayed(Duration(milliseconds: 500), () {
-        showDialog(
-          context: context,
-          builder: (context) =>
-           Dialog(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Lottie.asset(
-                  "assets/images/congratulations.json",
-                  repeat: false,
-                  controller: lottieController,
-                  onLoaded: (composition) {
-                    lottieController.duration = composition.duration*3;
-                    lottieController.forward();
-                  },
+      showDialog(
+        context: context,
+        builder: (context) => Dialog(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Lottie.asset(
+                "assets/images/congratulations.json",
+                repeat: false,
+                controller: lottieController,
+                onLoaded: (composition) {
+                  lottieController.duration = composition.duration * 3;
+                  lottieController.forward();
+                },
+              ),
+              const SizedBox(height: 8),
+              Center(
+                child: Text(
+                  "You have earned $points points for $name",
+                  style: TextStyle(fontSize: 21),
                 ),
-                const SizedBox(height: 8),
-                Center(
-                  child: Text(
-                    "You have earned $points points for $name",
-                    style: TextStyle(fontSize: 21),
-                  ),
-                ),
-                const SizedBox(height: 14),
-              ],
-            ),
+              ),
+              const SizedBox(height: 14),
+            ],
           ),
-        ). then((value) => lottieController.reset());
+        ),
+      ).then((value) => lottieController.reset());
 // });
 
   @override
@@ -304,42 +303,78 @@ class _PredictState extends State<Predict> with SingleTickerProviderStateMixin {
                                     fontSize: 22),
                               ),
                         _output.isNotEmpty
-                            ? Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    if (_output.isNotEmpty) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Info(_output[0]['index'])));
-                                    }
-                                  },
-                                  child: Container(
-                                    height: 60,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.black,
+                            ? Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10,left: 20,right: 20),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if (_output.isNotEmpty) {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => Info(
+                                                      _output[0]['index'])));
+                                        }
+                                      },
+                                      child: Container(
+                                        height: 60,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.black,
+                                        ),
+                                        child: Center(
+                                            child: Text(
+                                          'Know more',
+                                          style: GoogleFonts.getFont(
+                                              'Didact Gothic',
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 26),
+                                        )),
+                                      ),
                                     ),
-                                    child: Center(
-                                        child: Text(
-                                      'Know more',
-                                      style: GoogleFonts.getFont(
-                                          'Didact Gothic',
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 26),
-                                    )),
                                   ),
-                                ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20,right: 20,top: 10),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if (_output.isNotEmpty) {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(builder: (ctx) {
+                                            return FeeDBack();
+                                          }));
+                                        }
+                                      },
+                                      child: Container(
+                                        height: 30,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.black,
+                                        ),
+                                        child: Center(
+                                            child: Text(
+                                          'Feedback',
+                                          style: GoogleFonts.getFont(
+                                              'Didact Gothic',
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 26),
+                                        )),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               )
                             : Container()
                       ],
                     ),
                   )
-                : Container()
+                : Container(),
           ],
         ),
       ),

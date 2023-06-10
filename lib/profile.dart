@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trash_can/leaderboard.dart';
 import 'package:trash_can/login.dart';
 
 import 'points.dart';
@@ -68,17 +70,25 @@ class _MyProfileState extends State<MyProfile> {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     prefs.setBool('isLoggedIn', false);
-                    await FirebaseAuth.instance.signOut();
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (ctx) {
-                      return LoginScreen();
-                    }));
+                    // await FirebaseAuth.instance.signOut();
+                    // Navigator.of(context)
+                    //     .push(MaterialPageRoute(builder: (ctx) {
+                    //   return LoginScreen();
+                    // }));
+                    FirebaseAuth.instance.signOut().then((value) {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: ((ctx) {
+                        return LoginScreen();
+                      })));
+                    });
                   }
 
                   break;
-                  case 'points':{
-                    Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-                        return Points();
+                case 'points':
+                  {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (ctx) {
+                      return Points();
                     }));
                   }
                   break;
@@ -101,86 +111,83 @@ class _MyProfileState extends State<MyProfile> {
           )
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(50, 5, 5, 0),
-        //Code snippet of a card widget//
-
-/** Card Widget **/
-        child: Card(
-          // elevation: 20,
-          // shadowColor: Colors.black,
-          color: Color(0xFFFFFDD0),
-          child: SizedBox(
-            width: 300,
-            height: 380,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.green[500],
-                    radius: 108,
-                    child: CircleAvatar(
-                      backgroundImage: Image.network(
-                              (FirebaseAuth.instance.currentUser!.photoURL)!)
-                          .image,
-                      //NetworkImage
-                      radius: 106,
-                    ), //CircleAvatar
-                  ), //CircleAvatar
-                  SizedBox(
-                    height: 10,
-                  ), //SizedBox
-                  Text(
-                    (FirebaseAuth.instance.currentUser!.displayName!),
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.green[900],
-                      fontWeight: FontWeight.w500,
-                    ), //Textstyle
-                  ), //Text
-                  SizedBox(
-                    height: 10,
-                  ), //SizedBox
-                  Text(
-                    'Points: $totSum',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.green[900],
-                      fontWeight: FontWeight.w900
-                    ), //Textstyle
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(50, 5, 5, 0),
+            child: Card(
+              // elevation: 20,
+              // shadowColor: Colors.black,
+              color: Color(0xFFFFFDD0),
+              child: SizedBox(
+                width: 300,
+                height: 380,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.green[500],
+                        radius: 108,
+                        child: CircleAvatar(
+                          backgroundImage: Image.network((FirebaseAuth
+                                  .instance.currentUser!.photoURL)!)
+                              .image,
+                          radius: 106,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        (FirebaseAuth.instance.currentUser!.displayName!),
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.green[900],
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Points: $totSum',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.green[900],
+                            fontWeight: FontWeight.w900),
+                      ),
+                    ],
                   ),
-                  // ElevatedButton(
-                  //     onPressed: () {
-                  //       final i=sumPoints(uid);
-                  //       print(i);
-
-                  //     },
-                  //     child: Text("click")) //Text
-                  // SizedBox(
-                  // 	height: 10,
-                  // ), //SizedBox
-                  // SizedBox(
-                  // 	width: 80,
-                  // 	child: ElevatedButton(
-                  // 	onPressed: () => null,
-                  // 	// color: Colors.green,
-                  // 	child: Padding(
-                  // 		padding: const EdgeInsets.all(4.0),
-                  // 		child: Row(
-                  // 		children: [
-                  // 			Icon(Icons.touch_app),
-                  // 			Text('Visit'),
-                  // 		],
-                  // 		), //Row
-                  // 	), //Padding
-                  // 	), //RaisedButton
-                  // ) //SizedBox
-                ],
-              ), //Column
-            ), //Padding
-          ), //SizedBox
-        ), //Card
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 47, top: 50),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx){return LeaderboardScreen();}));
+              },
+              child: Container(
+                height: 60,
+                width: 300,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.black,
+                ),
+                child: Center(
+                    child: Text(
+                  'Leaderboard',
+                  style: GoogleFonts.getFont('Didact Gothic',
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 26),
+                )),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

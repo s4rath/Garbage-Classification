@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trash_can/main.dart';
 import 'package:trash_can/model/allinoneboard.dart';
-
-
 
 import 'constant/constant.dart';
 import 'login.dart';
@@ -151,10 +151,19 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   bottom: MediaQuery.of(context).size.height * 0.04,
                   left: MediaQuery.of(context).size.width * 0.36,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+                    onPressed: () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+                      if(isLoggedIn==false) {
+                        Navigator.push(context, MaterialPageRoute(builder: (ctx) {
                         return LoginScreen();
                       }));
+                      }else{
+                        Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                          return Nav();
+                        }));
+                      }
                     },
                     child: Text(
                       "Get Started",
@@ -205,7 +214,9 @@ class PageBuilderWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 100,),
+          SizedBox(
+            height: 100,
+          ),
           Container(
             margin: const EdgeInsets.only(top: 30),
             child: Image.asset(imgurl),
@@ -222,7 +233,7 @@ class PageBuilderWidget extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
-          
+
           //discription
           Text(description,
               textAlign: TextAlign.center,
