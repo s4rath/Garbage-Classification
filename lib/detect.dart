@@ -68,18 +68,21 @@ class _PredictState extends State<Predict> with SingleTickerProviderStateMixin {
   detectimage(File image) async {
     print(image.path);
     var prediction = await Tflite.runModelOnImage(
-        path: image.path, numResults: 12, threshold: 0.45);
+      path: image.path,
+      numResults: 12,
+      // threshold: 0.45,
+    );
     print("predictions are $prediction");
     setState(() {
       _output = prediction!;
-      print(_output);
+      // print(_output[0]['confidence']);
       loading = false;
     });
     isNotempty();
   }
 
   void isNotempty() {
-    if (_output.isNotEmpty) {
+    if (_output.isNotEmpty && _output[0]['confidence']>0.6) {
       String gname = _output[0]['label'];
       int? points = materialsPoints[gname];
       // Future.delayed(Duration(milliseconds: 600), () {
@@ -120,7 +123,7 @@ class _PredictState extends State<Predict> with SingleTickerProviderStateMixin {
   }
 
   pickimage_camera() async {
-    var image = await imagepicker.getImage(source: ImageSource.camera);
+    var image = await imagepicker.pickImage(source: ImageSource.camera);
     if (image == null) {
       return null;
     } else {
@@ -282,8 +285,8 @@ class _PredictState extends State<Predict> with SingleTickerProviderStateMixin {
                         SizedBox(
                           height: 10,
                         ),
-                        _output.isNotEmpty
-                            ? Row(
+                           if (_output.isNotEmpty && _output[0]['confidence']>0.6)
+                           Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
@@ -295,18 +298,43 @@ class _PredictState extends State<Predict> with SingleTickerProviderStateMixin {
                                   ),
                                 ],
                               )
-                            : Text(
-                                'Image cannot be detected',
+                              else Text(
+                                _output[0]["label"]!=null?
+                                'Image cannot be detected likely to be ${_output[0]["label"]}':"Image cannot be detected",
                                 style: GoogleFonts.getFont('Didact Gothic',
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 22),
                               ),
-                        _output.isNotEmpty
-                            ? Column(
+
+
+                        // _output.isNotEmpty
+                        //     ? Row(
+                        //         mainAxisAlignment: MainAxisAlignment.center,
+                        //         children: [
+                        //           Text(
+                        //             'Classified as : ${_output[0]['label'].toString()}',
+                        //             style: GoogleFonts.getFont('Didact Gothic',
+                        //                 color: Colors.black,
+                        //                 fontWeight: FontWeight.bold,
+                        //                 fontSize: 22),
+                        //           ),
+                        //         ],
+                        //       )
+                        //     : Text(
+                        //         'Image cannot be detected',
+                        //         style: GoogleFonts.getFont('Didact Gothic',
+                        //             color: Colors.black,
+                        //             fontWeight: FontWeight.bold,
+                        //             fontSize: 22),
+                        //       ),
+
+                                     if (_output.isNotEmpty && _output[0]['confidence']>0.6)
+                                     Column(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 10,left: 20,right: 20),
+                                    padding: const EdgeInsets.only(
+                                        top: 10, left: 20, right: 20),
                                     child: GestureDetector(
                                       onTap: () {
                                         if (_output.isNotEmpty) {
@@ -338,7 +366,8 @@ class _PredictState extends State<Predict> with SingleTickerProviderStateMixin {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 20,right: 20,top: 10),
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 20, top: 10),
                                     child: GestureDetector(
                                       onTap: () {
                                         if (_output.isNotEmpty) {
@@ -370,7 +399,81 @@ class _PredictState extends State<Predict> with SingleTickerProviderStateMixin {
                                   ),
                                 ],
                               )
-                            : Container()
+                              else Container(),
+
+                        // _output.isNotEmpty
+                        //     ? Column(
+                        //         children: [
+                        //           Padding(
+                        //             padding: const EdgeInsets.only(
+                        //                 top: 10, left: 20, right: 20),
+                        //             child: GestureDetector(
+                        //               onTap: () {
+                        //                 if (_output.isNotEmpty) {
+                        //                   Navigator.push(
+                        //                       context,
+                        //                       MaterialPageRoute(
+                        //                           builder: (context) => Info(
+                        //                               _output[0]['index'])));
+                        //                 }
+                        //               },
+                        //               child: Container(
+                        //                 height: 60,
+                        //                 width: double.infinity,
+                        //                 decoration: BoxDecoration(
+                        //                   borderRadius:
+                        //                       BorderRadius.circular(10),
+                        //                   color: Colors.black,
+                        //                 ),
+                        //                 child: Center(
+                        //                     child: Text(
+                        //                   'Know more',
+                        //                   style: GoogleFonts.getFont(
+                        //                       'Didact Gothic',
+                        //                       color: Colors.white,
+                        //                       fontWeight: FontWeight.bold,
+                        //                       fontSize: 26),
+                        //                 )),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //           Padding(
+                        //             padding: const EdgeInsets.only(
+                        //                 left: 20, right: 20, top: 10),
+                        //             child: GestureDetector(
+                        //               onTap: () {
+                        //                 if (_output.isNotEmpty) {
+                        //                   Navigator.of(context).push(
+                        //                       MaterialPageRoute(builder: (ctx) {
+                        //                     return FeeDBack();
+                        //                   }));
+                        //                 }
+                        //               },
+                        //               child: Container(
+                        //                 height: 30,
+                        //                 width: double.infinity,
+                        //                 decoration: BoxDecoration(
+                        //                   borderRadius:
+                        //                       BorderRadius.circular(10),
+                        //                   color: Colors.black,
+                        //                 ),
+                        //                 child: Center(
+                        //                     child: Text(
+                        //                   'Feedback',
+                        //                   style: GoogleFonts.getFont(
+                        //                       'Didact Gothic',
+                        //                       color: Colors.white,
+                        //                       fontWeight: FontWeight.bold,
+                        //                       fontSize: 26),
+                        //                 )),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       )
+
+
+                        //     : Container()
                       ],
                     ),
                   )

@@ -21,7 +21,7 @@ class FirebaseServices {
           FirebaseFirestore.instance.collection("users").doc(user!.uid).set({
             'email':user.email,
             'name': user.displayName,
-            'phone':user.phoneNumber?? 'null'
+            // 'phone':user.phoneNumber?? 'null'
           });
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setBool('isLoggedIn', true);

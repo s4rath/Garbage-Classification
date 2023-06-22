@@ -52,7 +52,7 @@ class HomePageState extends State<HomePage> {
               options: CarouselOptions(
                   height: 175.0,
                   autoPlay: true),
-              items: ['assets/images/home1.jpg','assets/images/home2.jpg','assets/images/home4.jpg','assets/images/home3.jpg','assets/images/home5.jpg'].map((i) {
+              items: ['assets/images/home2.jpg','assets/images/home1.jpg','assets/images/home4.jpg','assets/images/home5.jpg','assets/images/home3.jpg'].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
