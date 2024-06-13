@@ -94,7 +94,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                                     fontSize: 18, color: primarygreen),
                               ),
                               style: ElevatedButton.styleFrom(
-                                primary: lightgreenshede1,
+                                backgroundColor: lightgreenshede1,
                                 shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.only(
                                         topRight: Radius.circular(20.0),
@@ -116,7 +116,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                                     fontSize: 18, color: primarygreen),
                               ),
                               style: ElevatedButton.styleFrom(
-                                primary: lightgreenshede1,
+                                backgroundColor: lightgreenshede1,
                                 shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.only(
                                         topRight: Radius.circular(20.0),
@@ -137,7 +137,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                           style: TextStyle(fontSize: 18, color: primarygreen),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: lightgreenshede1,
+                          backgroundColor: lightgreenshede1,
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(20.0),
@@ -170,7 +170,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                       style: TextStyle(fontSize: 18, color: primarygreen),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: lightgreenshede1,
+                      backgroundColor: lightgreenshede1,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
                     ),
